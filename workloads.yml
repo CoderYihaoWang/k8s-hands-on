@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: webapp
-  replicas: 2
+  replicas: 1
   template: 
     metadata:
       labels:
@@ -14,7 +14,10 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: richardchesterwood/k8s-fleetman-webapp-angular:release0
+        image: richardchesterwood/k8s-fleetman-webapp-angular:release1
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice
 
 ---
 apiVersion: apps/v1
