@@ -18,28 +18,6 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
-          
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: queue
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: queue
-  template:
-    metadata:
-      labels:
-        app: queue
-    spec:
-      containers:
-      - name: queue
-        image: richardchesterwood/k8s-fleetman-queue:release2
-        resources:
-          requests:
-            memory: 300Mi
 
 ---
 apiVersion: apps/v1
