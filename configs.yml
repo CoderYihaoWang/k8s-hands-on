@@ -4,5 +4,6 @@ metadata:
   name: global-database-config
   namespace: default
 data:
-  DATABASE_URL: "https://dbserver.somewhere.com:3306"
-  DATABASE_PASSWORD: "password"
+  database.properties: |
+    database.url=https://dbserver.somewhere.com:3306
+    database.password=password
