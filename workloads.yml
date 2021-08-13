@@ -36,14 +36,17 @@ spec:
     spec:
       containers:
       - name: position-simulator
-        image: richardchesterwood/k8s-fleetman-position-simulator:resources
+        image: richardchesterwood/k8s-fleetman-position-simulator:release2
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
-        envFrom:
-        - configMapRef:
-            name: global-database-config
-
+        volumeMounts:
+        - name: database-config-volume
+          mountPath: /etc/any/directory/config
+      volumes:
+      - name: database-config-volume
+        configMap:
+          name: global-database-config  
 
 ---
 apiVersion: apps/v1
@@ -62,13 +65,17 @@ spec:
     spec:
       containers:
       - name: position-tracker
-        image: richardchesterwood/k8s-fleetman-position-tracker:resources
+        image: richardchesterwood/k8s-fleetman-position-tracker:release2
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
-        envFrom:
-        - configMapRef:
-            name: global-database-config
+        volumeMounts:
+        - name: database-config-volume
+          mountPath: /etc/any/directory/config
+      volumes:
+      - name: database-config-volume
+        configMap:
+          name: global-database-config
 
 ---
 apiVersion: apps/v1
@@ -87,7 +94,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: richardchesterwood/k8s-fleetman-api-gateway:resources
+        image: richardchesterwood/k8s-fleetman-api-gateway:release2
         readinessProbe:
           httpGet:
             path: /
